@@ -1,0 +1,37 @@
+<h1>Hello {{ name }}</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This is So Cool</title>
+    <script>
+        function calculateAge() {
+            const dob = document.getElementById('dob').value;
+            if (dob === "") {
+                alert("Please enter your date of birth.");
+                return;
+            }
+
+            const dobDate = new Date(dob);
+            const today = new Date();
+            let age = today.getFullYear() - dobDate.getFullYear();
+            const monthDifference = today.getMonth() - dobDate.getMonth();
+
+            // Check if the birthday has already occurred this year
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dobDate.getDate())) {
+                age--;
+            }
+
+            document.getElementById('ageResult').innerHTML = "Your age is: " + age;
+        }
+    </script>
+</head>
+<body>
+    <h1>Age Calculator</h1>
+    <p>Please enter your date of birth:</p>
+    <input type="date" id="dob" />
+    <button onclick="calculateAge()">Calculate Age</button>
+    <p id="ageResult"></p>
+</body>
+</html>
