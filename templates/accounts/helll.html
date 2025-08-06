@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <title>login page</title>
+    <style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    input{
+        width:200px;
+    }
+        </style>
+
+
+</head>
+<div style="background-color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; height:200px;width:400px"></div>
+<div style="display: flex;max-width: 2000px;">
+    <div style="background-color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; height:300px;width:500px"></div>
+<div style="background-color: aqua; display: flex; flex-direction: column; justify-content: center; align-items: center; height:350px;width:350px;border-end-start-radius: 20px;border-start-start-radius: 20px;border-start-end-radius: 20px;border-end-end-radius: 20px;">
+<h2 style="text-shadow: 3px;">Login</h2>
+<form method="POST" >
+
+<p><label for="id_username">Username:<br></label> <input type="text" name="username" placeholder="Username or Email" required></p>
+<p><label for="id_password">Password:<br></label> <input type="password" name="password"placeholder="Password" required></p>
+<button type="submit">Login</button><input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+<br>
+<a href="{% url 'register' %}">
+    <button type="button">Create One</button>
+</a>
+</form></div></div>

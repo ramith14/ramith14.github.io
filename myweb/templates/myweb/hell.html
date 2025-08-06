@@ -18,7 +18,6 @@
             let age = today.getFullYear() - dobDate.getFullYear();
             const monthDifference = today.getMonth() - dobDate.getMonth();
 
-            // Check if the birthday has already occurred this year
             if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dobDate.getDate())) {
                 age--;
             }
@@ -33,5 +32,7 @@
     <input type="date" id="dob" />
     <button onclick="calculateAge()">Calculate Age</button>
     <p id="ageResult"></p>
+<a href="{% url 'deletionofuser' username=request.user.username %}" class="btn btn-danger">Delete My Account</a>
+<a href="{% url 'login' %}" class="btn btn-primary">Logout</a>
 </body>
 </html>

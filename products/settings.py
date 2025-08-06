@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import environ, os
 import os
 import dj_database_url
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
@@ -23,6 +26,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Configure static files storage
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 
 
@@ -34,7 +40,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SECRET_KEY = 'SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost','ALLOWED_HOST','products-1-6xwu.onrender.com']
 
@@ -48,7 +54,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myweb'
+    'myweb',
+    'accounts',
+    'musicplayer',
+    'django_extensions',
+
 ]
 
 MIDDLEWARE = [
@@ -67,7 +77,7 @@ ROOT_URLCONF = 'products.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'template')],
+         'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,15 +95,30 @@ WSGI_APPLICATION = 'products.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, 'products/.env'))
 
+# Database
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
-    )
+       'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
+#DATABASES = {
+ #   'default': {
+ #      'ENGINE': 'django.db.backends.postgresql',
+  #      'NAME': 'mydb',
+   #    'USER': 'postgres',
+#        'PASSWORD': 'ramith@123$',
+ #       'HOST': 'localhost',
+#        'PORT': '5432',
+ #   }
+#}
+# Max upload size (100MB here)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 100 * 1024 * 1024
+FILE_UPLOAD_MAX_MEMORY_SIZE = 100 * 1024 * 1024
 
 
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -134,3 +159,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL = '/myweb/'  # or any post-login page
+LOGOUT_REDIRECT_URL = '/login/'  # or your choice
+LOGIN_URL='/login/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
