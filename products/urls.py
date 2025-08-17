@@ -19,6 +19,7 @@ from django.urls import path,include
 from django.http import HttpResponse
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
 
 
 urlpatterns = [
@@ -26,6 +27,7 @@ urlpatterns = [
     path('myweb/',include('myweb.urls')),
     path('music/', include('musicplayer.urls')),
     path('', include('accounts.urls'))
+    path('google5595d0557037a3f8.html/',views.google_index)
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
