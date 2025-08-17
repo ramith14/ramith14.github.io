@@ -26,8 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('myweb/',include('myweb.urls')),
     path('music/', include('musicplayer.urls')),
-    path('', include('accounts.urls'))
-    path('google5595d0557037a3f8.html/',views.google_index)
+    path('', include('accounts.urls')),
+    path('google5595d0557037a3f8.html',views.google_index,name='google_indexation'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
